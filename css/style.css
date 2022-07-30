@@ -1,0 +1,237 @@
+/* Gerais */
+@import url('https://fonts.googleapis.com/css2? family= Poppins:wght@200;300;400;500;600;700 & display=swap');
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    background: #0d79ec;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 100px auto;
+    font-family:'Poppins',sans-serif;  
+}
+/* Layout */
+.container{
+    width: 45%;
+    max-width: 400px;
+    padding: 40px 30px 25px 30px;
+    background: #fff;
+    border: 2px solid #fff;
+    border-radius: 6px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, .5);
+}
+.container h1{
+    color: #1a1b1d;
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+/* Fomulario de convenção de moeda */
+.formbox{
+    width: 100%;
+}
+.formbox p{
+    color: #1a1b1d;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+.formbox .valueBox{
+    position: relative;
+}
+.valueBox .inputBox{
+    position: relative;
+    width: 100%;
+    height: 30px;
+    color: #1a1b1d;
+    font-size: 1rem;
+    padding-left: 5px;
+    padding-bottom: 0.3rem;
+    margin-bottom: 10px;
+    border: none; 
+    outline: none;
+    border-bottom: 2px solid #0d79ec;  
+}
+/* Botao Limpar */
+.clean{
+    position: absolute;
+    right: 10px;
+    top: -10px;
+    padding: 5px;
+    outline: none;
+    border: none;
+    background: transparent;  
+    cursor: pointer;
+}
+.fas{
+    font-size: 18px;
+}
+.error-text{
+    color: #dc345d;
+    opacity: 0;
+    margin-left: 0.5rem;
+    margin-bottom: 0.3rem;
+}
+.error-text.show-error{
+    opacity: 1;
+}
+/* Dropdown */
+.formbox .dropdown{
+    position: relative;
+    width: 100%;
+    height: 50px;
+}
+.dropdown::before{
+    content: '';
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    z-index: 10000;
+    width: 8px;
+    height: 8px;
+    border: 2px solid #333;
+    border-top: 2px solid #fff;
+    border-right: 2px solid #fff;
+    transform: rotate(-45deg);
+    transition: 0.5s;
+    pointer-events: none;
+}
+.dropdown.active::before{
+    top: 22px;
+    transform: rotate(-225deg);
+}
+.formbox .dropdown{
+    position: relative;
+    width: 100%;
+    margin: 10px auto 5px;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid #bfbfbf;
+    border-bottom-width: 2px;
+}
+.dropdown .textBox{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    outline:none;
+    padding: 12px 20px;
+    border-radius: 5px;
+}
+.dropdown .option{
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    border-radius: 10px;
+    border:1px solid #bfbfbf;
+    overflow: hidden;
+    display: none;
+}
+.dropdown.active .option{
+    display: block;
+}
+.dropdown .option div{
+    padding: 12px 20px;
+    cursor: pointer;
+}
+.dropdown .option div:hover{
+    background: #0d79ec;
+    color: #fff;
+}
+.dropdown.select-error{
+    border: 1px solid #dc345d;
+}
+.error-select{
+    color: #dc345d;
+    opacity: 0;
+    margin-left: 0.5rem;
+    margin-bottom: 0.3rem;
+}
+.error-select.show-error{
+    opacity: 1;
+}
+/* Botao de convencao */
+.formbox #btnCvt{
+    color:#fff ;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    width: 100%;
+    padding: 15px 20px;
+    margin-bottom: 0.3rem;
+    border-radius: 5px;
+    background-color:#0d79ec;
+    border: 2px solid #bfbfbf;
+    outline: none;
+    cursor: pointer;
+    transition: 0.5s;  
+}
+.formbox #btnCvt:hover{
+    background: #1f2ca3d2;
+}
+.formbox #btnCvt:active{
+    background-color:#1939f3d2;  
+    opacity: 0.3;
+    transition: all 0.9s;
+}
+/* Mostrar valores convertidos */
+#res{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #0d79ec;
+    font-size: 1.6rem;
+    height: 25px;
+    padding: 2rem; 
+    margin-bottom: 0.5rem;
+}
+/* Medias */
+@media(max-width:900px){
+    .container{
+        width: 100%;
+    }
+}
+@media(max-width:500px){
+    .container{
+        width: 100%;
+    }
+}
+@media(max-width:420px){
+   .container{
+       width: 90%;
+   }
+   .container h1{
+       font-size: 1.7rem;
+   }
+   .formbox p{
+       font-size: 1rem;
+   }
+   .valueBox .inputBox {
+       font-size: 0.95rem;
+   }
+   .dropdown .textBox{
+    font-size: 0.95rem; 
+   }
+   .dropdown .option div{
+    font-size: 0.95rem; 
+   }
+   #res{
+       font-size: 1.90rem;
+   }
+}
+@media(max-width:380px){
+    .container h1{
+        font-size: 1.5rem;
+    }
+}
+

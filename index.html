@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+  
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous"/>
+    <title>Conversor de Moedas</title>
+   
+</head>
+<body>
+    <div class="container">
+        <h1>Conversor de Moedas</h1>
+        <div class="formbox">
+            <p>Quantidade</p>
+            <div class="valueBox">
+                <input type="text" id="txtv" class="inputBox" placeholder="Informe o valor em reais"> 
+                <button class="clean"><i class="fas fa-redo"></i></button>
+
+            </div>
+            <div class="error-text">Adicione um valor em Real*</div>
+            <div class="dropdown">
+                <input type="text" class="textBox" placeholder="Informe a moeda">
+                 <div class="option">
+                    <div onclick="show('USD/Dolar')">USD/Dolar</div>
+                    <div onclick="show('EUR/Euro')">EUR/Euro</div>
+                    <div onclick="show('Libra')">Libra</div>
+                    <div onclick="show('Bitcoin')">Bitcoin</div>
+                 </div>
+             </div>
+            <div class="error-select">Escolha uma moeda*</div>
+            <button id="btnCvt">Converter</button>  
+        </div> 
+        <div id="res"></div>
+    </div>
+    <script src="js/script.js"></script>
+
+   </body>
+</html>
