@@ -1,86 +1,75 @@
 /* Gerais */
-@import url('https://fonts.googleapis.com/css2? family= Poppins:wght@200;300;400;500;600;700 & display=swap');
 *{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 body{
-    background: #0d79ec;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 100px auto;
-    font-family:'Poppins',sans-serif;  
+    margin: auto;
+    font-family: "Inter", sans-serif;
 }
 /* Layout */
 .container{
     width: 45%;
     max-width: 400px;
-    padding: 40px 30px 25px 30px;
-    background: #fff;
-    border: 2px solid #fff;
-    border-radius: 6px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, .5);
+    padding: 28px;
+    background: #f9f9f9;
+    border: 2px solid #f9f9f9;
+    border-radius: 16px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 .container h1{
     color: #1a1b1d;
-    font-size: 1.8rem;
-    font-weight: 700;
-    text-align: center;
+    font-size: 1.6rem;
     margin-bottom: 1rem;
 }
+.subtitle {
+  font-size: 0.95rem;
+  color: #666;
+  margin-top: -10px;
+  margin-bottom: 20px;
+}
 /* Fomulario de convenção de moeda */
-.formbox{
+.form{
     width: 100%;
 }
-.formbox p{
-    color: #1a1b1d;
-    font-size: 1.2rem;
-    letter-spacing: 1px;
-    margin-bottom: 0.5rem;
-}
-.formbox .valueBox{
+.form .inputBox{
     position: relative;
 }
-.valueBox .inputBox{
+.inputBox .field{
     position: relative;
     width: 100%;
-    height: 30px;
     color: #1a1b1d;
     font-size: 1rem;
-    padding-left: 5px;
-    padding-bottom: 0.3rem;
-    margin-bottom: 10px;
+    padding: 8px 40px 8px 8px;
     border: none; 
     outline: none;
-    border-bottom: 2px solid #0d79ec;  
+    border-bottom: 2px solid #1a1b1d;;  
 }
-/* Botao Limpar */
-.clean{
+.field:focus{
+    background-color: none;
+}
+#btn-clean{
     position: absolute;
     right: 10px;
-    top: -10px;
+    top: 0;
     padding: 5px;
     outline: none;
     border: none;
     background: transparent;  
     cursor: pointer;
 }
-.fas{
-    font-size: 18px;
-}
-.error-text{
-    color: #dc345d;
-    opacity: 0;
-    margin-left: 0.5rem;
-    margin-bottom: 0.3rem;
-}
-.error-text.show-error{
-    opacity: 1;
+ion-icon{
+    color: #1a1b1d;
+    font-size: 1.4rem;
 }
 /* Dropdown */
-.formbox .dropdown{
+.form .dropdown{
     position: relative;
     width: 100%;
     height: 50px;
@@ -104,16 +93,16 @@ body{
     top: 22px;
     transform: rotate(-225deg);
 }
-.formbox .dropdown{
+.form .dropdown{
     position: relative;
     width: 100%;
-    margin: 10px auto 5px;
+    margin: 15px auto 15px;
     border-radius: 5px;
     outline: none;
     border: 1px solid #bfbfbf;
     border-bottom-width: 2px;
 }
-.dropdown .textBox{
+.dropdown .dropdown-field{
     position: absolute;
     top: 0;
     left: 0;
@@ -142,58 +131,78 @@ body{
 }
 .dropdown .option div{
     padding: 12px 20px;
+    transition: background 0.3s ease;
     cursor: pointer;
 }
 .dropdown .option div:hover{
     background: #0d79ec;
     color: #fff;
 }
-.dropdown.select-error{
-    border: 1px solid #dc345d;
-}
-.error-select{
-    color: #dc345d;
-    opacity: 0;
-    margin-left: 0.5rem;
-    margin-bottom: 0.3rem;
-}
-.error-select.show-error{
-    opacity: 1;
-}
 /* Botao de convencao */
-.formbox #btnCvt{
+#btn-convert{
     color:#fff ;
     font-size: 1.2rem;
-    font-weight: 600;
     letter-spacing: 1px;
     width: 100%;
     padding: 15px 20px;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.8rem;
     border-radius: 5px;
     background-color:#0d79ec;
     border: 2px solid #bfbfbf;
     outline: none;
     cursor: pointer;
-    transition: 0.5s;  
+    transition: transform 0.2s ease, background 0.4s ease;
 }
-.formbox #btnCvt:hover{
-    background: #1f2ca3d2;
+#btn-convert:hover{
+   transform: translateY(-2px);
+   background: #1f2ca3;
 }
-.formbox #btnCvt:active{
+#btn-convert:active{
     background-color:#1939f3d2;  
     opacity: 0.3;
     transition: all 0.9s;
 }
 /* Mostrar valores convertidos */
-#res{
+#info{
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #0d79ec;
-    font-size: 1.6rem;
-    height: 25px;
-    padding: 2rem; 
+    background-color: #bfbfbf;
+    color: #1a1b1d;
+    letter-spacing: 1.5px;
+    font-size: 1.2rem;
+    padding: 0.85rem; 
     margin-bottom: 0.5rem;
+    border: 1px solid #bfbfbf;
+    border-radius: 5px;
+}
+.swal2-slide-in-right {
+  animation: slideInRight 0.5s ease-out;
+}
+.swal2-slide-out-right {
+  animation: slideOutRight 0.4s ease-in forwards;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
 }
 /* Medias */
 @media(max-width:900px){
@@ -209,14 +218,16 @@ body{
 @media(max-width:420px){
    .container{
        width: 90%;
+       padding: 20px;
    }
    .container h1{
        font-size: 1.7rem;
    }
-   .formbox p{
-       font-size: 1rem;
-   }
-   .valueBox .inputBox {
+    #btn-convert{
+        padding: 12px;
+        font-size: 1rem;
+    }
+   .inputBox .field{
        font-size: 0.95rem;
    }
    .dropdown .textBox{
@@ -225,8 +236,8 @@ body{
    .dropdown .option div{
     font-size: 0.95rem; 
    }
-   #res{
-       font-size: 1.90rem;
+   #info{
+       font-size: 1.4rem;
    }
 }
 @media(max-width:380px){

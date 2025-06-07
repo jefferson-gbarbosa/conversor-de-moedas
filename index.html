@@ -3,39 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Converta reais em outras moedas como dólar, euro, libra ou bitcoin com facilidade.">
     <link rel="stylesheet" href="css/style.css">
-  
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
-    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous"/>
-    <title>Conversor de Moedas</title>
-   
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <title>Conversor de Moedas</title>  
 </head>
 <body>
-    <div class="container">
+    <main class="container">
         <h1>Conversor de Moedas</h1>
-        <div class="formbox">
-            <p>Quantidade</p>
-            <div class="valueBox">
-                <input type="text" id="txtv" class="inputBox" placeholder="Informe o valor em reais"> 
-                <button class="clean"><i class="fas fa-redo"></i></button>
-
+        <p class="subtitle">Converta de Reais (BRL) para USD, EUR, GBP ou BTC</p>
+        <form class="form">
+            <div class="inputBox">
+                <input type="text" id="txtv" class="field" placeholder="Informe o valor em reais" autocomplete="off"> 
+                <button id="btn-clean"><ion-icon name="close-circle-outline"></ion-icon></button>
             </div>
-            <div class="error-text">Adicione um valor em Real*</div>
             <div class="dropdown">
-                <input type="text" class="textBox" placeholder="Informe a moeda">
+                <input type="text" class="dropdown-field" placeholder="Informe a moeda" readonly>
                  <div class="option">
-                    <div onclick="show('USD/Dolar')">USD/Dolar</div>
-                    <div onclick="show('EUR/Euro')">EUR/Euro</div>
-                    <div onclick="show('Libra')">Libra</div>
-                    <div onclick="show('Bitcoin')">Bitcoin</div>
+                    <div onclick="showValue('USD/Dólar')">USD/Dólar</div>
+                    <div onclick="showValue('EUR/Euro')">EUR/Euro</div>
+                    <div onclick="showValue('GBP/Libra')">GBP/Libra</div>
+                    <div onclick="showValue('BTC/Bitcoin')">BTC/Bitcoin</div>
                  </div>
              </div>
-            <div class="error-select">Escolha uma moeda*</div>
-            <button id="btnCvt">Converter</button>  
-        </div> 
-        <div id="res"></div>
-    </div>
+            <button id="btn-convert">Converter</button>
+        </form> 
+        <div id="info"></div>
+    </main>
     <script src="js/script.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
    </body>
 </html>

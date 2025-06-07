@@ -1,86 +1,120 @@
-/* SELECIONAR ELEMENTOS */
-let btnConverte= document.querySelector('#btnCvt');
-let valorDigitado = document.querySelector('#txtv');
-let btnClean = document.querySelector('.clean');
-let icon = document.querySelector('.fas');
-let dropdown = document.querySelector('.dropdown');
+const btnConverte = document.querySelector('#btn-convert');
+const valorDigitado = document.querySelector('#txtv');
+const dropdown = document.querySelector('.dropdown');
+const dropdownField = document.querySelector('.dropdown-field');
+const inforBox = document.querySelector('#info');
+const btnClean = document.querySelector('#btn-clean');
 
-// COTACOES DO DIA 06/03/2022 
-let dolar=5.06;
-let euro=5.53;
-let libra=6.70;
-// let bitcoin=195510.98;
-let bitcoin = 197659.96;
-let valorConvertido;
+const API_TOKEN = '0c349e5f6cd7f33afbcc902277ef15dbac2f595f2c7bd72ec95f5fdc58eb80fa';
+let ultimaAtualizacao = null;
 
-// CONVERTER MOEDA
-btnConverte.onclick=function(){
-    if(valorDigitado.value.length == ''){
-       let error =document.querySelector('.error-text');
-       error.classList.add('show-error');
-       valorDigitado.addEventListener('keydown',function(){
-          error.classList.remove('show-error');
-       });
-    }else{
-        ativarBotao();
-        let valorEmReal = parseFloat(valorDigitado.value);
-        let option=document.querySelector('.textBox').value; 
+const exchangeRates = {
+    USD: null,
+    EUR: null,
+    GBP: null,
+    BTC: null,
+};
+// Obter cotações ao carregar
+document.addEventListener('DOMContentLoaded', obterCotacoes);
+btnConverte.addEventListener('click', convertValue);
+// Dropdown
+dropdown.addEventListener('click',() => {
+    dropdown.classList.toggle('active')
+});
+// Limpar campos
+btnClean.addEventListener('click', cleanValues)
 
-        switch (option) {
-            case "USD/Dolar":
-                valorConvertido = valorEmReal / dolar;
-                document.getElementById('res').innerHTML = valorConvertido.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + ' Dólar';
-                break;
-            case "EUR/Euro":
-                valorConvertido = valorEmReal / euro;
-                document.getElementById('res').innerHTML = valorConvertido.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' }) + ' Euro.';
-                break;
-            case "Libra":
-                valorConvertido = valorEmReal / libra;
-                document.getElementById('res').innerHTML = valorConvertido.toLocaleString('en-GB', { style: 'currency', currency: 'GBP' }) + ' Libra';
-                break;
-            case "Bitcoin":
-                valorConvertido = valorEmReal / bitcoin;
-                document.getElementById('res').innerHTML = parseFloat(valorConvertido).toFixed(5) + ' BTC';
-                break;
-            default:
-                check();
-        }
+async function obterCotacoes() {
+    const agora = Date.now();
+    if (ultimaAtualizacao && (agora - ultimaAtualizacao < 5 * 60 * 1000)) return;
+    try {
+        const res = await fetch(`https://economia.awesomeapi.com.br/json/last/USD-BRL,EUR-BRL,GBP-BRL,BTC-BRL?token=${API_TOKEN}`);
+        const data = await res.json();
+
+        exchangeRates.USD = +data.USDBRL.bid;
+        exchangeRates.EUR = +data.EURBRL.bid;
+        exchangeRates.GBP = +data.GBPBRL.bid;
+        exchangeRates.BTC = +data.BTCBRL.bid;
+
+        ultimaAtualizacao = agora;
+
+    } catch (err) {
+        console.error("Erro:", err);
+        exchangeRates.USD = 5.06;
+        exchangeRates.EUR = 5.53;
+        exchangeRates.GBP = 6.70;
+        exchangeRates.BTC = 197659.96;
     }
 }
+// Converter valor
+async function convertValue(e){
+    e.preventDefault();
+    if (!exchangeRates.USD) {
+        inforBox.innerHTML = 'Carregando cotações...';
+        await obterCotacoes();
+    }
 
-//SHOW
-function show(text){
-    document.querySelector('.textBox').value = text;
+    const valor = parseFloat(valorDigitado.value);
+    const moeda = dropdownField.value;
+
+    if (!valor || isNaN(valor)) return showError('Valor inválido', 'Digite um valor numérico válido em reais.');
+    if (!moeda) return showError('Moeda não selecionada', 'Escolha uma moeda para conversão.');
+
+    converterMoeda(valor, moeda);
+};
+
+function converterMoeda(valor, moeda) {
+    const formatos = {
+        "USD/Dólar": { rate: exchangeRates.USD, locale: "en-US", symbol: "USD" },
+        "EUR/Euro": { rate: exchangeRates.EUR, locale: "de-DE", symbol: "EUR" },
+        "GBP/Libra": { rate: exchangeRates.GBP, locale: "en-GB", symbol: "GBP" },
+        "BTC/Bitcoin": { rate: exchangeRates.BTC, symbol: "BTC" }
+    };
+
+    const config = formatos[moeda];
+    if (!config) return showError('.error-select', dropdown);
+
+    const valorConvertido = valor / config.rate;
+
+    inforBox.innerHTML = config.symbol === 'BTC'
+        ? `${valorConvertido.toFixed(8)} BTC`
+        : valorConvertido.toLocaleString(config.locale, { style: 'currency', currency: config.symbol });
 }
-dropdown.onclick=function(){
- dropdown.classList.toggle('active');
+// Mostrar moeda escolhida
+function showValue(text) {
+    dropdownField.value = text;
 }
-
-// VALIDAR O SELECT CASO ESTEJA VAZIO
-function check(){
-    let errorSelect = document.querySelector('.error-select');
-    errorSelect.classList.add('show-error');
-    
-    dropdown.classList.add('select-error')
-    dropdown.addEventListener('click',function(){
-       errorSelect.classList.remove('show-error');
-       dropdown.classList.remove('select-error')
-    });
+// Mostrar erros
+function showError(title, text) {
+  Swal.fire({
+    toast: true,
+    position: 'top-end',      
+    icon: 'error',
+    title: title,
+    text: text,
+    showConfirmButton: false,
+    timer: 4000,
+    timerProgressBar: true,
+    showClass: {
+      popup: 'swal2-show swal2-slide-in-right'
+    },
+    hideClass: {
+      popup: 'swal2-hide swal2-slide-out-right'
+    },
+    didOpen: (toast) => {
+      const progressBar = toast.querySelector('.swal2-timer-progress-bar');
+      if (progressBar) {
+        progressBar.style.background = '#f27474';
+        progressBar.style.opacity = '1';
+        progressBar.style.height = '4px';
+      }
+    }
+  });
 }
-
-//LIMPAR TELA E DESABILITAR O BOTÃO LIMPA
-btnClean.disabled=true;
-icon.style.color="#ccc";
-btnClean.style.cursor="not-allowed"
-
-btnClean.onclick=function(){
+function cleanValues(){
     valorDigitado.value = ''
-    res.innerHTML = ''
-    document.querySelector('.textBox').value = '';
+    inforBox.innerHTML = ''
+    document.querySelector('..dropdown-field').value = '';
 }
-function ativarBotao() {
-    btnClean.removeAttribute('disabled');
-    btnClean.style.cursor="pointer"
-    icon.style.color="#0d79ec";
-}
+
+
