@@ -69,7 +69,7 @@ No arquivo js/script.js, localize a linha:
 Substitua 'SEU_TOKEN_AQUI' pelo seu token pessoal,pois este é apenas uma chave temporária:
 
 ```bash
-   const API_TOKEN = '0c349e5f6cd7f33afbcc902277ef15dbac2f595f2c7bd72ec95f5fdc58eb80fa';
+   const API_TOKEN = '*******************************';
 ```
 
 ### Importante
